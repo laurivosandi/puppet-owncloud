@@ -1,0 +1,36 @@
+#!/bin/bash
+occ app:enable user_ldap
+occ ldap:create-empty-conf
+occ ldap:delete-config '<%= $uri %>'
+<% if $uri %>
+occ ldap:set-config '' ldapHost '<%= $uri %>'
+<% if $agent_name %>
+occ ldap:set-config '' ldapAgentName '<%= $agent_name %>'
+<% end %>
+<% if $agent_password %>
+occ ldap:set-config '' ldapAgentPassword '<%= $agent_password %>'
+<% end %>
+<% if $base %>
+occ ldap:set-config '' ldapBase '<%= $base %>'
+<% end %>
+<% if $base_groups %>
+occ ldap:set-config '' ldapBaseGroups '<%= base_groups %>'
+<% end %>
+<% if $base_users %>
+occ ldap:set-config '' ldapBaseUsers '<%= base_groups %>'
+<% end %>
+occ ldap:set-config '' ldapLoginFilter '<%= $login_filter %>
+occ ldap:set-config '' ldapEmailAttribute '<%= $email_attribute %>'
+occ ldap:set-config '' ldapLoginFilterEmail '<% if $email_allowed %>1<% else %>0<% end %>'
+occ ldap:set-config '' ldapLoginFilterAttributes '<%= $login_filter_attributes %>'
+occ ldap:set-config '' ldapPort '389'
+occ ldap:set-config '' ldapUserFilter '<%= $user_filter %>'
+occ ldap:set-config '' ldapUserFilterObjectclass '<%= $user_filter_object_class %>'
+occ ldap:set-config '' ldapTLS '<% if $tls_enabled %>1<% else %>0<% end %>'
+occ ldap:set-config '' ldapConfigurationActive '<% if $ensure == present %>1<% else %>0<% end %>'
+occ ldap:set-config '' ldapCacheTTL 0
+occ ldap:set-config '' ldapExpertUUIDUserAttr '<%= expert_uuid_attribute %>'
+occ ldap:set-config '' ldapExpertUsernameAttr '<%= expert_username_attribute %>'
+occ ldap:set-config '' turnOffCertCheck 0
+occ ldap:set-config '' ldapUserDisplayName '<%= $user_display_name %>'
+<% end %>
